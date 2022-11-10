@@ -12,13 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import java.text.DecimalFormat;
 public class series_list extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView lV;
     TextView tV1, tV2, tV3, tV4;
     Intent gi = getIntent();
     String[] series = new String[20];
-
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +37,20 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
         double multipliermum = gi.getDoubleExtra("nn", -999);
         tV2.setText(String.valueOf(multipliermum));
         boolean tru = gi.getBooleanExtra("nnn", false);
-        series[0] = String.valueOf(first);
+        series[0] = df.format(first);
         if (tru) {
 
             for (int i = 1; i < series.length; i++) {
                 int num = 20;
                 double math = first + (num - 1) * multipliermum;
-                series[i] = String.valueOf(math);
+
+                series[i] = df.format(math);
                 num--;
             }
         } else {
             for (int i = 1; i < series.length; i++) {
                 double geometric = first * multipliermum;
-                series[i] = String.valueOf(geometric);
+                series[i] = df.format(geometric);
             }
         }
         ArrayAdapter adp = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, series);
@@ -62,11 +63,11 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
             x = multipliermum * j;
         }
         x = (first * (x - 1)) / multipliermum - 1;
-        return String.valueOf(x);
+        return df.format(x);
 
     }
     public static String invoice(double first, double multipliermum, int i){
-        return String.valueOf((multipliermum * (first + i)) / 2);
+        return df.format((multipliermum * (first + i)) / 2);
     }
 
 
