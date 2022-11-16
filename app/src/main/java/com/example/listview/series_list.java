@@ -36,9 +36,9 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
         tV1.setText(String.valueOf(first));
         double multipliermum = gi.getDoubleExtra("nn", -999);
         tV2.setText(String.valueOf(multipliermum));
-        boolean tru = gi.getBooleanExtra("nnn", false);
+        int tru = gi.getIntExtra("nnn", -999);
         series[0] = df.format(first);
-        if (tru) {
+        if (tru == 1) {
 
             for (int i = 1; i < series.length; i++) {
                 int num = 20;
@@ -47,13 +47,14 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
                 series[i] = df.format(math);
                 num--;
             }
-        } else {
+        }
+        else {
             for (int i = 1; i < series.length; i++) {
                 double geometric = first * multipliermum;
                 series[i] = df.format(geometric);
             }
         }
-        ArrayAdapter adp = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, series);
+        ArrayAdapter <String> adp = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, series);
         lV.setAdapter(adp);
     }
 
@@ -74,10 +75,10 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         tV3.setText(i);
-        boolean tr = gi.getBooleanExtra("nnn", false);
+        int tr = gi.getIntExtra("nnn", -999);
         double first = gi.getDoubleExtra("n", -999);
         double multipliermum = gi.getDoubleExtra("nn", -999);
-        if (tr) {
+        if (tr == 1) {
             tV4.setText(invoice(first,multipliermum,i));
         } else {
             tV4.setText(giomit(first, multipliermum, i));

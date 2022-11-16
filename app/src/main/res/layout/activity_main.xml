@@ -36,6 +36,19 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:onClick="next_activity"
+            android:text="next activity" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
         <EditText
             android:id="@+id/eTN1"
             android:layout_width="match_parent"

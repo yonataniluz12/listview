@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     double firstnum;
     double multipliermum;
     String str;
+    Intent si;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,19 +31,23 @@ public class MainActivity extends AppCompatActivity {
     public void go(View view) {
         if (sw.isChecked()){
             sw.setText("arithmetical");
-            Intent si = new Intent(this,series_list.class);
+            si = new Intent(this,series_list.class);
             si.putExtra("n",firstnum);
             si.putExtra("nn",multipliermum);
-            si.putExtra("nnn",true);
+            si.putExtra("nnn",1);
             startActivity(si);
         }
         else{
             sw.setText("geumtri");
-            Intent si = new Intent(this,series_list.class);
+            si = new Intent(this,series_list.class);
             si.putExtra("n",firstnum);
             si.putExtra("nn",multipliermum);
-            si.putExtra("nnn",false);
+            si.putExtra("nnn",0);
             startActivity(si);
         }
+    }
+
+    public void next_activity(View view) {
+        startActivity(si);
     }
 }
