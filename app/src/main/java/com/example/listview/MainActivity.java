@@ -34,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
             si.putExtra("n",firstnum);
             si.putExtra("nn",multipliermum);
             si.putExtra("nnn",true);
+            startActivity(si);
+        }
+        else{
+            sw.setText("geumtri");
+            Intent si = new Intent(this,series_list.class);
+            si.putExtra("n",firstnum);
+            si.putExtra("nn",multipliermum);
+            si.putExtra("nnn",false);
+            startActivity(si);
         }
     }
 }
