@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Switch sw;
@@ -23,8 +24,14 @@ public class MainActivity extends AppCompatActivity {
         eTN1 = findViewById(R.id.eTN1);
         eTN2 = findViewById(R.id.eTN2);
         str = eTN1.getText().toString();
+        while (str == ""){
+            Toast.makeText(this,"Enter a first number", Toast.LENGTH_LONG);
+        }
         firstnum = Double.parseDouble(str);
         str = eTN2.getText().toString();
+        while (str == " "){
+            Toast.makeText(this,"Enter a first number", Toast.LENGTH_LONG);
+        }
         multipliermum = Double.parseDouble(str);
     }
 

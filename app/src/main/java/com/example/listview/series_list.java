@@ -18,6 +18,9 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
     TextView tV1, tV2, tV3, tV4;
     Intent gi = getIntent();
     String[] series = new String[20];
+    double first;
+    double multipliermum;
+    int tru;
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     @Override
@@ -38,14 +41,12 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
         tV2.setText(String.valueOf(multipliermum));
         int tru = gi.getIntExtra("nnn", -999);
         series[0] = df.format(first);
+        double math = first;
         if (tru == 1) {
-
             for (int i = 1; i < series.length; i++) {
                 int num = 20;
-                double math = first + (num - 1) * multipliermum;
-
+                math = math + multipliermum;
                 series[i] = df.format(math);
-                num--;
             }
         }
         else {
@@ -75,10 +76,7 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         tV3.setText(i);
-        int tr = gi.getIntExtra("nnn", -999);
-        double first = gi.getDoubleExtra("n", -999);
-        double multipliermum = gi.getDoubleExtra("nn", -999);
-        if (tr == 1) {
+        if (tru == 1) {
             tV4.setText(invoice(first,multipliermum,i));
         } else {
             tV4.setText(giomit(first, multipliermum, i));
