@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         }
         firstnum = Double.parseDouble(str);
         str = eTN2.getText().toString();
-        while (str == " "){
+        while (str == ""){
             Toast.makeText(this,"Enter a first number", Toast.LENGTH_LONG);
         }
         multipliermum = Double.parseDouble(str);

@@ -44,9 +44,14 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
         double math = first;
         if (tru == 1) {
             for (int i = 1; i < series.length; i++) {
-                int num = 20;
-                math = math + multipliermum;
-                series[i] = df.format(math);
+                if(first > 0 ) {
+                    math = math + multipliermum;
+                    series[i] = df.format(math);
+                }
+                else {
+                    math = math - multipliermum;
+                    series[i] = df.format(math);
+                }
             }
         }
         else {
@@ -69,7 +74,7 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
 
     }
     public static String invoice(double first, double multipliermum, int i){
-        return df.format((multipliermum * (first + i)) / 2);
+        return df.format((multipliermum * (first + i)) / 2);//סכום סדרה חשבונית
     }
 
 
