@@ -2,59 +2,71 @@ package com.example.listview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Switch sw;
+    RadioButton rB1,rB2;
     EditText eTN1,eTN2;
     double firstnum;
     double multipliermum;
-    String str;
     Intent si;
+    Button btn1;
+    int seriesType = -1;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sw = findViewById(R.id.sw);
+        si = new Intent(this, series_list.class);
+        rB1 = findViewById(R.id.rB1);
+        rB2 = findViewById(R.id.rB2);
         eTN1 = findViewById(R.id.eTN1);
         eTN2 = findViewById(R.id.eTN2);
-        str = eTN1.getText().toString();
-        while (str == ""){
-            Toast.makeText(this,"Enter a first number", Toast.LENGTH_LONG);
-        }
-        firstnum = Double.parseDouble(str);
-        str = eTN2.getText().toString();
-        while (str == ""){
-            Toast.makeText(this,"Enter a first number", Toast.LENGTH_LONG);
-        }
-        multipliermum = Double.parseDouble(str);
-    }
+        btn1 = findViewById(R.id.btn1);
 
-    public void go(View view) {
-        if (sw.isChecked()){
-            sw.setText("arithmetical");
-            si = new Intent(this,series_list.class);
-            si.putExtra("n",firstnum);
-            si.putExtra("nn",multipliermum);
-            si.putExtra("nnn",1);
-            startActivity(si);
-        }
-        else{
-            sw.setText("geumtri");
-            si = new Intent(this,series_list.class);
-            si.putExtra("n",firstnum);
-            si.putExtra("nn",multipliermum);
-            si.putExtra("nnn",0);
-            startActivity(si);
-        }
-    }
+        btn1.setOnClickListener(view -> {
+            if (rB1.isChecked()) seriesType=0;
 
-    public void next_activity(View view) {
-        startActivity(si);
+            else if(rB2.isChecked()) seriesType=1;
+
+            if (seriesType==-1)
+                Toast.makeText(MainActivity.this, "You must chose the series type", Toast.LENGTH_LONG).show();
+
+            else if(inputOk()){
+                si.putExtra(" multipliermum", multipliermum);
+                si.putExtra("firstnum",firstnum);
+                si.putExtra("seriesType", seriesType);
+                startActivity(si);
+            }
+        });
+
+    }
+    public boolean inputOk() {
+        String st = eTN1.getText().toString();
+        if (st.matches("-?\\d+(\\.\\d+)?")) {
+            firstnum = Double.parseDouble(st);
+            st = eTN2.getText().toString();
+            if (st.matches("-?\\d+(\\.\\d+)?")) {
+                multipliermum = Double.parseDouble(st);
+                return true;
+            } else {
+                eTN2.setText("");
+                Toast.makeText(MainActivity.this, "You must enter a number", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        else {
+            eTN1.setText("");
+            Toast.makeText(MainActivity.this, "You must enter a number", Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 }

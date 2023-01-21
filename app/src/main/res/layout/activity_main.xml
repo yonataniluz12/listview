@@ -22,14 +22,25 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <Switch
-            android:id="@+id/sw"
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:onClick="go"
-            android:textOff="geometrical"
-            android:textOn="arithmetical" />
+            android:layout_weight="3">
+
+            <RadioButton
+                android:id="@+id/rB1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="arithmetical" />
+
+            <RadioButton
+                android:id="@+id/rB2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="geometrical" />
+        </RadioGroup>
 
         <Space
             android:layout_width="match_parent"
@@ -37,11 +48,10 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/next"
+            android:id="@+id/btn1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:onClick="next_activity"
             android:text="next activity" />
 
         <Space
@@ -55,7 +65,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Enter first number:"
+            android:hint="Enter first number"
             android:inputType="numberSigned|numberDecimal" />
 
         <Space
@@ -69,7 +79,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Enter multiplier:"
+            android:hint="Enter multiplier"
             android:inputType="numberSigned|numberDecimal" />
 
         <Space

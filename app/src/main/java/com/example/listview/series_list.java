@@ -2,6 +2,7 @@ package com.example.listview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.ImageReader;
 import android.os.Bundle;
@@ -16,13 +17,12 @@ import java.text.DecimalFormat;
 public class series_list extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView lV;
     TextView tV1, tV2, tV3, tV4;
-    Intent gi = getIntent();
     String[] series = new String[20];
-    double first;
-    double multipliermum;
-    int tru;
+    double firstnum ,sum, multipliermum;
+    int seriesType;
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,60 +32,40 @@ public class series_list extends AppCompatActivity implements AdapterView.OnItem
         tV3 = findViewById(R.id.tV3);
         tV4 = findViewById(R.id.tV4);
         lV = findViewById(R.id.lV);
-
+        Intent gi = getIntent();
         lV.setOnItemClickListener(this);
         lV.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        double first = gi.getDoubleExtra("n", -999);
-        tV1.setText(String.valueOf(first));
-        double multipliermum = gi.getDoubleExtra("nn", -999);
-        tV2.setText(String.valueOf(multipliermum));
-        int tru = gi.getIntExtra("nnn", -999);
-        series[0] = df.format(first);
-        double math = first;
-        if (tru == 1) {
-            for (int i = 1; i < series.length; i++) {
-                if(first > 0 ) {
-                    math = math + multipliermum;
-                    series[i] = df.format(math);
-                }
-                else {
-                    math = math - multipliermum;
-                    series[i] = df.format(math);
-                }
-            }
+        firstnum = gi.getDoubleExtra("firstnum", -999.0);
+        tV1.setText(firstnum + "");
+        multipliermum = gi.getDoubleExtra("multipliermum ", -999.0);
+        tV2.setText(multipliermum + "");
+        seriesType = gi.getIntExtra("seriesType", -999);
+        series[0] = firstnum +"";
+
+        if(seriesType==0) {
+            for (int i = 1; i < series.length; i++)
+                series[i] = (firstnum + multipliermum * (i)) + "";
         }
-        else {
-            for (int i = 1; i < series.length; i++) {
-                double geometric = first * multipliermum;
-                series[i] = df.format(geometric);
-            }
+        else{
+            for (int i = 1; i < series.length; i++)
+                series[i] = String.format("%s", (firstnum * Math.pow(multipliermum,i)));
         }
-        ArrayAdapter <String> adp = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, series);
+        ArrayAdapter<String> adp= new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, series);
         lV.setAdapter(adp);
     }
 
-    public static String giomit(double first, double multipliermum, int i) {
-        double x = 0;
-        for (int j = 1; j < i; j++) {
-            x = multipliermum * j;
-        }
-        x = (first * (x - 1)) / multipliermum - 1;
-        return df.format(x);
 
-    }
-    public static String invoice(double first, double multipliermum, int i){
-        return df.format((multipliermum * (first + i)) / 2);//סכום סדרה חשבונית
-    }
-
-
+    @SuppressLint("SetTextI18n")
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        tV3.setText(i);
-        if (tru == 1) {
-            tV4.setText(invoice(first,multipliermum,i));
-        } else {
-            tV4.setText(giomit(first, multipliermum, i));
+        tV3.setText(i + 1+ " ");
+        if (seriesType==0){
+            sum = ((2*firstnum +i*multipliermum)*(i+1))/2;
         }
+        else{
+            sum= firstnum* (((Math.pow(multipliermum,i+1))-1)/(multipliermum-1));
+        }
+        tV4.setText(String.format("%s", sum));
     }
 
     public void gooo(View view) {
